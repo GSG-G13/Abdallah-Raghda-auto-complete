@@ -6,7 +6,6 @@ const path= require('path');
 
 const router = (request, response) => {
   const endpoint = request.url;
-  console.log(endpoint);
 
   if(endpoint === '/') {
 
@@ -47,9 +46,8 @@ const router = (request, response) => {
       response.writeHead(200, { 'Content-Type': 'text/js' });
       response.end(file);
     }});
-  }  else if (endpoint === '/src/countries.json') {
-    console.log('here is a script');
-    const filePath = path.join(__dirname, '..','src', 'countries.json');
+  }  else if (endpoint === '/countries') {
+    const filePath = path.join(__dirname, 'countries.json');
     fs.readFile(filePath, (error, file) => {
       if (error) {
         console.log(error);
