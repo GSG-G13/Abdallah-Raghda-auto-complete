@@ -26,10 +26,38 @@ const router = (request, response) => {
         response.end('Internal Server Error');
         return;
       }
-
+      else {
       response.writeHead(200, { 'Content-Type': 'text/css' });
       response.end(file);
-    });
+    }});
+  }  else if (endpoint === '/public/script.js') {
+    console.log('here is a script');
+    const filePath = path.join(__dirname, '..','public', 'script.js');
+    fs.readFile(filePath, (error, file) => {
+      if (error) {
+        console.log(error);
+        response.writeHead(500, { 'Content-Type': 'text/plain' });
+        response.end('Internal Server Error');
+        return;
+      }
+      else {
+      response.writeHead(200, { 'Content-Type': 'text/js' });
+      response.end(file);
+    }});
+  }  else if (endpoint === '/src/countries.json') {
+    console.log('here is a script');
+    const filePath = path.join(__dirname, '..','src', 'countries.json');
+    fs.readFile(filePath, (error, file) => {
+      if (error) {
+        console.log(error);
+        response.writeHead(500, { 'Content-Type': 'text/plain' });
+        response.end('Internal Server Error');
+        return;
+      }
+      else {
+      response.writeHead(200, { 'Content-Type': 'text/json' });
+      response.end(file);
+    }});
   }
 }
 
