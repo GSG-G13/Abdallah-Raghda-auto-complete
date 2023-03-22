@@ -1,14 +1,31 @@
 const searchInput = document.getElementById('search-input');
 const suggestions = document.getElementById('suggestions');
-console.log("sada");
 let words = [];
 
 // Load data from JSON file
 //hr
 const xhr = new XMLHttpRequest();
-xhr.open('GET', '/src/countries.json', true);
+const xhr2 = new XMLHttpRequest();
+
+var model = 'camry';
+var apiKey = 'Ax8a4LTa+oHEClExlAPgeA==p13w3co5JrIe6ky1';
+var url = 'https://api.api-ninjas.com/v1/cars?model=' + model;
+xhr2.open('GET', url);
+xhr2.setRequestHeader('X-Api-Key', apiKey);
+xhr2.onload = function() {
+  if (xhr2.status === 200) {
+    console.log(xhr2.responseText);
+  } else {
+    console.error('Error:', xhr2.status, xhr2.responseText);
+  }
+};
+xhr2.onerror = function() {
+  console.error('Request failed:', xhr2.statusText);
+};
+xhr2.send();
+
+xhr.open('GET', '/countries', true);
 xhr.onreadystatechange = function() {
-    console.log("reday")
   if (xhr.readyState === XMLHttpRequest.DONE) {
     if (xhr.status === 200) {
       const data = JSON.parse(xhr.responseText);
@@ -52,19 +69,4 @@ function renderSuggestions(filteredWords) {
 
 //const request = require('request');
 
-var model = 'camry';
-var apiKey = 'Ax8a4LTa+oHEClExlAPgeA==p13w3co5JrIe6ky1';
-var url = 'https://api.api-ninjas.com/v1/cars?model=' + model;
-xhr.open('GET', url);
-xhr.setRequestHeader('X-Api-Key', apiKey);
-xhr.onload = function() {
-  if (xhr.status === 200) {
-    console.log(xhr.responseText);
-  } else {
-    console.error('Error:', xhr.status, xhr.responseText);
-  }
-};
-xhr.onerror = function() {
-  console.error('Request failed:', xhr.statusText);
-};
-xhr.send();
+
