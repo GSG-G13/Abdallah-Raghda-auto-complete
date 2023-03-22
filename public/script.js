@@ -14,7 +14,31 @@ xhr2.open('GET', url);
 xhr2.setRequestHeader('X-Api-Key', apiKey);
 xhr2.onload = function() {
   if (xhr2.status === 200) {
-    console.log(xhr2.responseText);
+    const cars = JSON.parse(xhr2.responseText);
+    const container = document.querySelector('#container');
+
+    cars.forEach(car => {
+      const carDiv = document.createElement('div');
+      carDiv.classList.add('car');
+
+      const makeModelDiv = document.createElement('div');
+      makeModelDiv.textContent = `${car.make} ${car.model}`;
+      carDiv.appendChild(makeModelDiv);
+
+      const yearDiv = document.createElement('div');
+      yearDiv.textContent = `Year: ${car.year}`;
+      carDiv.appendChild(yearDiv);
+
+      const mpgDiv = document.createElement('div');
+      mpgDiv.textContent = `MPG: ${car.city_mpg} (city) / ${car.highway_mpg} (highway) / ${car.combination_mpg} (combined)`;
+      carDiv.appendChild(mpgDiv);
+
+      const cylindersDiv = document.createElement('div');
+      cylindersDiv.textContent = `Cylinders: ${car.cylinders}`;
+      carDiv.appendChild(cylindersDiv);
+
+      container.appendChild(carDiv);
+    });
   } else {
     console.error('Error:', xhr2.status, xhr2.responseText);
   }
@@ -23,7 +47,6 @@ xhr2.onerror = function() {
   console.error('Request failed:', xhr2.statusText);
 };
 xhr2.send();
-
 xhr.open('GET', '/countries', true);
 xhr.onreadystatechange = function() {
   if (xhr.readyState === XMLHttpRequest.DONE) {
@@ -65,8 +88,5 @@ function renderSuggestions(filteredWords) {
     });
   }
 }
-
-
-//const request = require('request');
 
 
