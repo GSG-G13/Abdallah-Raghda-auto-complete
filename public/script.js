@@ -48,3 +48,23 @@ function renderSuggestions(filteredWords) {
     });
   }
 }
+
+
+//const request = require('request');
+
+var model = 'camry';
+var apiKey = 'Ax8a4LTa+oHEClExlAPgeA==p13w3co5JrIe6ky1';
+var url = 'https://api.api-ninjas.com/v1/cars?model=' + model;
+xhr.open('GET', url);
+xhr.setRequestHeader('X-Api-Key', apiKey);
+xhr.onload = function() {
+  if (xhr.status === 200) {
+    console.log(xhr.responseText);
+  } else {
+    console.error('Error:', xhr.status, xhr.responseText);
+  }
+};
+xhr.onerror = function() {
+  console.error('Request failed:', xhr.statusText);
+};
+xhr.send();
