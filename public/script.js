@@ -5,6 +5,7 @@ let words = [];
 // Load data from JSON file
 //hr
 const xhr = new XMLHttpRequest();
+<<<<<<< HEAD
 const container = document.querySelector('#container');
 const modelInput = document.querySelector('#search-input');
 
@@ -41,6 +42,55 @@ console.log(searchInput.value);
     }
   };
   xhr3.send();
+=======
+const xhr2 = new XMLHttpRequest();
+const container = document.querySelector('#container');
+const modelInput = document.querySelector('#search-input');
+
+modelInput.addEventListener('input', () => {
+  const model = modelInput.value;
+  const apiKey = 'Ax8a4LTa+oHEClExlAPgeA==p13w3co5JrIe6ky1';
+  const url = 'https://api.api-ninjas.com/v1/cars?model=' + model;
+  xhr2.open('GET', url);
+  xhr2.setRequestHeader('X-Api-Key', apiKey);
+  xhr2.onload = function() {
+    if (xhr2.status === 200) {
+      const cars = JSON.parse(xhr2.responseText);
+
+      // Clear existing car elements
+      container.innerHTML = '';
+
+      cars.forEach(car => {
+        const carDiv = document.createElement('div');
+        carDiv.classList.add('car');
+
+        const makeModelDiv = document.createElement('div');
+        makeModelDiv.textContent = `${car.make} ${car.model}`;
+        carDiv.appendChild(makeModelDiv);
+
+        const yearDiv = document.createElement('div');
+        yearDiv.textContent = `Year: ${car.year}`;
+        carDiv.appendChild(yearDiv);
+
+        const mpgDiv = document.createElement('div');
+        mpgDiv.textContent =` MPG: ${car.city_mpg} (city) / ${car.highway_mpg} (highway) / ${car.combination_mpg} (combined)`;
+        carDiv.appendChild(mpgDiv);
+
+        const cylindersDiv = document.createElement('div');
+        cylindersDiv.textContent = `Cylinders: ${car.cylinders}`;
+        carDiv.appendChild(cylindersDiv);
+
+        container.appendChild(carDiv);
+      });
+    } else {
+      console.error('Error:', xhr2.status, xhr2.responseText);
+    }
+  };
+  xhr2.onerror = function() {
+    console.error('Request failed:', xhr2.statusText);
+  };
+  xhr2.send();
+>>>>>>> main
 });
 
 
