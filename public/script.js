@@ -5,6 +5,44 @@ let words = [];
 // Load data from JSON file
 //hr
 const xhr = new XMLHttpRequest();
+<<<<<<< HEAD
+const container = document.querySelector('#container');
+const modelInput = document.querySelector('#search-input');
+
+
+suggestions.addEventListener('click', function() {
+  const xhr3 = new XMLHttpRequest();
+
+  const url = `https://api.unsplash.com/search/photos?query=${searchInput.value}&client_id=MGOmGN5eZ9eQ5rlhqYHKVKFMBA2RCC5KeEuxe88Mo00`;
+console.log(searchInput.value);
+  xhr3.open("GET", url);
+  xhr3.onload = function () {
+    console.log("jgjhgh")
+    if (xhr3.status === 200) {
+      const response = JSON.parse(xhr3.responseText);
+      const results = response.results;
+      
+      const container = document.getElementById("container");
+      container.innerHTML = ''; // clear previous results
+      results.forEach((result) => {
+        const imgLink = document.createElement('a');
+        imgLink.href = result.urls.full;
+        imgLink.target = '_blank';
+
+        const img = document.createElement('img');
+        img.src = result.urls.small;
+        img.alt = result.alt_description;
+        img.title = result.description;
+
+        imgLink.appendChild(img);
+        container.appendChild(imgLink);
+      });
+    } else {
+      console.log("Request failed. Status: " + xhr3.status);
+    }
+  };
+  xhr3.send();
+=======
 const xhr2 = new XMLHttpRequest();
 const container = document.querySelector('#container');
 const modelInput = document.querySelector('#search-input');
@@ -52,6 +90,7 @@ modelInput.addEventListener('input', () => {
     console.error('Request failed:', xhr2.statusText);
   };
   xhr2.send();
+>>>>>>> main
 });
 
 
@@ -97,5 +136,4 @@ function renderSuggestions(filteredWords) {
     });
   }
 }
-
 
